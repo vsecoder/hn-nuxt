@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
-    <h1>About</h1>
-    <p>This is the about page</p>
+    <p class="text-xl font-bold mb-2">About</p>
+    <p>This is an example of a Nuxt app with the <a href="https://news.ycombinator.com/news">HackerNews</a> API.</p>
   </div>
 </template>
 

@@ -8,12 +8,8 @@
       <a :href="post.url" class="text-blue-900">{{ post.title }}</a>
     </div>
   </div>
-  <div v-for="comment in comments" :key="comment.id" class="border-b border-gray-100 p-4">
-    <div>
-      <a :href="`/user/${comment.user}`" class="underline">{{ comment.user }}</a> {{ comment.time_ago }}:
-    </div>
-    <div v-html="comment.content"></div>
-  </div>
+
+  <Comments :comments="comments" />
 </template>
 
 <script setup>

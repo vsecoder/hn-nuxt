@@ -6,11 +6,11 @@
 
 <script setup>
 useHead({
-  title: 'HN',
+  title: 'News',
   meta: [
     {
       name: 'description',
-      content: 'Hacker News readers as Progressive Web Apps',
+      content: 'Hacker News reader',
     },
   ],
 });

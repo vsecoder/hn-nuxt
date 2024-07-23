@@ -6,11 +6,11 @@
       </div>
       <div class="text-sm text-gray-700">
         <div>
-          <a :href="post.url" class="text-base text-gray-900">{{ post.title }}</a>
+          <nuxt-link :to="post.url" class="text-base text-gray-900">{{ post.title }}</nuxt-link>
         </div>
         <div class="ml-1">
-          by <a :href="`/user/${post.user}`" class="underline">{{ post.user }}</a> |
-          <a :href="`/comments/${post.id}`" class="underline">{{ post.comments_count }} comments</a>
+          by <nuxt-link :to="`/user/${post.user}`" class="underline">{{ post.user }}</nuxt-link> |
+          <nuxt-link :to="`/comments/${post.id}`" class="underline">{{ post.comments_count }} comments</nuxt-link>
         </div>
       </div>
     </div>
