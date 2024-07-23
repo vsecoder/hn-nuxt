@@ -1,11 +1,13 @@
 <template>
-  <div v-for="comment in comments" :key="comment.id" class="border-b border-gray-100 p-4 pb-0 break-words" :class="embeddedClass">
+  <div v-for="comment in comments" :key="comment.id" class="border-b border-gray-100 break-words flex gap-4 flex-col" :class="embeddedClass">
     <div>
-      <a :href="`/user/${comment.user}`" class="underline font-medium">{{ comment.user }}</a> <span class="text-xs text-gray-700">{{ comment.time_ago }}</span>:
+      <div>
+        <a :href="`/user/${comment.user}`" class="underline font-medium">{{ comment.user }}</a> <span class="text-xs text-gray-700">{{ comment.time_ago }}</span>:
+      </div>
+      <div class="comment-content" v-html="comment.content"></div>
     </div>
-    <div class="comment-content" v-html="comment.content"></div>
 
-    <div v-if="comment.comments.length">
+    <div v-if="comment.comments.length" class="flex gap-4 flex-col">
       <Comments :comments="comment.comments" :embedded="true" />
     </div>
   </div>
@@ -20,7 +22,7 @@ const props = defineProps({
   },
 });
 
-const embeddedClass = props.embedded ? 'pl-6 border-b-0' : '';
+const embeddedClass = props.embedded ? 'pl-6 border-b-0' : 'p-4';
 </script>
 
 <style lang="scss">
