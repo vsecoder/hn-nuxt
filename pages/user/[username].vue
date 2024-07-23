@@ -2,7 +2,7 @@
   <div class="p-4">
     <div class="flex items-center gap-4 pb-2 justify-between">
       <div class="text-2xl">{{ username }}</div>
-      <div>
+      <div v-if="user.id">
         <div class="text-sm">
           <span>Created:</span> {{ new Date(user.created * 1000).toLocaleDateString() }}
         </div>
@@ -10,9 +10,11 @@
           <span>Karma:</span> {{ user.karma }}
         </div>
       </div>
+
+      <div v-else>Loading...</div>
     </div>
 
-    <div class="text-gray-700" v-html="user.about"></div>
+    <div class="text-gray-700 overflow-x-auto max-w-full" v-html="user.about"></div>
   </div>
 </template>
 
