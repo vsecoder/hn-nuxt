@@ -9,7 +9,9 @@
           <nuxt-link :to="post.url" class="text-base text-gray-900">{{ post.title }}</nuxt-link>
         </div>
         <div class="ml-1">
-          by <nuxt-link :to="`/user/${post.user}`" class="underline">{{ post.user }}</nuxt-link> |
+          by 
+          <nuxt-link :to="`/user/${post.user}`" class="underline" v-if="post.user">{{ post.user }}</nuxt-link>
+          <span v-else>Unknown</span> |
           <nuxt-link :to="`/comments/${post.id}`" class="underline">{{ post.comments_count }} comments</nuxt-link>
         </div>
       </div>

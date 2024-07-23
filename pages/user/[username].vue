@@ -1,7 +1,18 @@
 <template>
   <div class="p-4">
-    <div class="text-2xl">{{ username }}</div>
-    <div class="text-gray-700">This is the user page</div>
+    <div class="flex items-center gap-4 pb-2 justify-between">
+      <div class="text-2xl">{{ username }}</div>
+      <div>
+        <div class="text-sm">
+          <span>Created:</span> {{ new Date(user.created * 1000).toLocaleDateString() }}
+        </div>
+        <div class="text-sm">
+          <span>Karma:</span> {{ user.karma }}
+        </div>
+      </div>
+    </div>
+
+    <div class="text-gray-700" v-html="user.about"></div>
   </div>
 </template>
 
@@ -9,20 +20,21 @@
 const route = useRoute();
 const username = route.params.username;
 
+const user = ref({});
+
 import { onMounted } from 'vue';
 
 useHead({
   title: `User ${username}`,
 });
 
-// https://api.hnpwa.com/v0/users/davideast.json
 onMounted(() => {
-  fetch(`https://api.hnpwa.com/v0/users/${username}.json`)
+  fetch(`https://hacker-news.firebaseio.com/v0/user/${username}.json?print=pretty`)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      user.value = data;
     })
     .catch((error) => {
       console.error('Error:', error);

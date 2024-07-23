@@ -30,4 +30,9 @@ const embeddedClass = props.embedded ? 'pl-6 border-b-0' : 'p-4';
   color: #044997;
   text-decoration: underline;
 }
+
+.comment-content pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
 </style>
