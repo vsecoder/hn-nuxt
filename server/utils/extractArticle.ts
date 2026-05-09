@@ -1,5 +1,5 @@
 import { Readability } from '@mozilla/readability'
-import { JSDOM } from 'jsdom'
+import { parseHTML } from 'linkedom'
 import sanitizeHtml from 'sanitize-html'
 import TurndownService from 'turndown'
 
@@ -56,8 +56,12 @@ export const extractArticle = defineCachedFunction(
 
     let article: ReturnType<Readability['parse']>
     try {
-      const dom = new JSDOM(html, { url })
-      const reader = new Readability(dom.window.document)
+      const { document } = parseHTML(html)
+      // linkedom doesn't auto-populate these; Readability uses them
+      // to turn relative <a href> / <img src> into absolute URLs.
+      Object.defineProperty(document, 'documentURI', { value: url, configurable: true })
+      Object.defineProperty(document, 'baseURI', { value: url, configurable: true })
+      const reader = new Readability(document as unknown as Document)
       article = reader.parse()
     } catch {
       return null
@@ -130,7 +134,7 @@ export const extractArticle = defineCachedFunction(
     }
   },
   {
-    name: 'article-extract-v3',
+    name: 'article-extract-v4',
     maxAge: 60 * 60 * 24 * 7,
     swr: true,
   },
