@@ -1,9 +1,9 @@
 <template>
   <NuxtLayout>
     <div class="flex flex-col items-center gap-4 p-8 text-center">
-      <div class="text-4xl font-medium text-blue-950">{{ error.statusCode }}</div>
-      <div class="text-gray-700">{{ message }}</div>
-      <button class="text-blue-700 underline" @click="handleError">Go home</button>
+      <div class="text-4xl font-medium text-accent">{{ error.statusCode }}</div>
+      <div class="text-fg-muted">{{ message }}</div>
+      <button class="text-link underline" @click="handleError">Go home</button>
     </div>
   </NuxtLayout>
 </template>

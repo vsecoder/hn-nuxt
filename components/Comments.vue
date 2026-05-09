@@ -3,13 +3,13 @@
     v-for="comment in comments"
     :id="`comment-${comment.id}`"
     :key="comment.id"
-    class="comment flex flex-col gap-4 break-words border-b border-gray-100"
+    class="comment flex flex-col gap-4 break-words border-b border-divider"
     :class="embeddedClass"
   >
     <div>
       <div class="text-sm">
         <nuxt-link :to="`/user/${comment.user}`" class="font-medium underline">{{ comment.user }}</nuxt-link>
-        <a :href="`#comment-${comment.id}`" class="ml-1 text-xs text-gray-500 hover:underline">
+        <a :href="`#comment-${comment.id}`" class="ml-1 text-xs text-fg-subtle hover:underline">
           {{ comment.time_ago }}
         </a>
       </div>
@@ -41,11 +41,11 @@ const embeddedClass = props.embedded ? 'pl-6 border-b-0' : 'p-4';
 }
 
 .comment:target {
-  background-color: #fff7d6;
+  background-color: rgb(var(--color-target));
 }
 
 .comment-content a {
-  color: #044997;
+  color: rgb(var(--color-link));
   text-decoration: underline;
 }
 

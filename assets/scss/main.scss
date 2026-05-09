@@ -1,3 +1,46 @@
+:root {
+  color-scheme: light dark;
+
+  /* Light theme tokens — RGB triplets for Tailwind <alpha-value> support */
+  --color-bg: 255 255 255;            /* card / content bg */
+  --color-bg-soft: 229 231 235;       /* gray-200 — page outer bg */
+  --color-bg-header: 107 114 128;     /* gray-500 — app header */
+  --color-fg: 17 24 39;               /* gray-900 — primary text */
+  --color-fg-muted: 55 65 81;         /* gray-700 */
+  --color-fg-subtle: 107 114 128;     /* gray-500 */
+  --color-accent: 23 37 84;           /* blue-950 */
+  --color-link: 4 73 151;
+  --color-visited: 107 114 128;       /* gray-500 */
+  --color-divider: 243 244 246;       /* gray-100 */
+  --color-divider-strong: 229 231 235;/* gray-200 */
+  --color-error: 185 28 28;           /* red-700 */
+  --color-code: 243 244 246;          /* inline code bg */
+  --color-code-block: 249 250 251;    /* pre block bg */
+  --color-target: 255 247 214;        /* :target highlight */
+  --color-header-fg: 255 255 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: 31 41 55;             /* gray-800 — card bg */
+    --color-bg-soft: 17 24 39;        /* gray-900 — page outer */
+    --color-bg-header: 17 24 39;      /* gray-900 — header */
+    --color-fg: 243 244 246;          /* gray-100 */
+    --color-fg-muted: 209 213 219;    /* gray-300 */
+    --color-fg-subtle: 156 163 175;   /* gray-400 */
+    --color-accent: 191 219 254;      /* blue-200 */
+    --color-link: 96 165 250;         /* blue-400 */
+    --color-visited: 107 114 128;     /* gray-500 */
+    --color-divider: 55 65 81;        /* gray-700 */
+    --color-divider-strong: 75 85 99; /* gray-600 */
+    --color-error: 248 113 113;       /* red-400 */
+    --color-code: 55 65 81;
+    --color-code-block: 17 24 39;
+    --color-target: 78 39 4;          /* dark amber */
+    --color-header-fg: 243 244 246;
+  }
+}
+
 html {
   box-sizing: border-box;
   margin: 0;
@@ -6,6 +49,8 @@ html {
   font-family: Inter, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  background-color: rgb(var(--color-bg-soft));
+  color: rgb(var(--color-fg));
 }
 
 *,

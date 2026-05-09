@@ -1,13 +1,13 @@
 <template>
   <div class="p-4">
-    <div v-if="error" class="text-red-700">
+    <div v-if="error" class="text-error">
       Failed to load user: {{ error.statusMessage || error.message }}
       <button class="ml-2 underline" @click="refresh()">Retry</button>
     </div>
     <template v-else>
       <div class="flex items-center gap-4 pb-2 justify-between">
         <div class="text-2xl">{{ route.params.username }}</div>
-        <div v-if="user">
+        <div v-if="user" class="text-fg-muted">
           <div class="text-sm">
             <span>Created:</span> {{ new Date(user.created * 1000).toLocaleDateString() }}
           </div>
@@ -15,10 +15,10 @@
             <span>Karma:</span> {{ user.karma }}
           </div>
         </div>
-        <div v-else-if="pending">Loading...</div>
+        <div v-else-if="pending" class="text-fg-subtle">Loading...</div>
       </div>
 
-      <div class="text-gray-700 overflow-x-auto max-w-full" v-html="user?.about"></div>
+      <div class="overflow-x-auto max-w-full text-fg-muted" v-html="user?.about"></div>
     </template>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="initialError" class="p-4 text-center text-red-700">
+  <div v-if="initialError" class="p-4 text-center text-error">
     Failed to load posts: {{ initialError.statusMessage || initialError.message }}
     <button class="ml-2 underline" @click="initialRefresh()">Retry</button>
   </div>
@@ -8,12 +8,12 @@
     <div
       v-for="post in posts"
       :key="post.id"
-      class="flex flex-row gap-4 border border-gray-100 p-4"
+      class="flex flex-row gap-4 border border-divider p-4"
     >
-      <div class="flex min-w-12 flex-col items-center justify-center font-medium text-blue-950">
+      <div class="flex min-w-12 flex-col items-center justify-center font-medium text-accent">
         {{ post.points || 0 }}
       </div>
-      <div class="text-sm text-gray-700">
+      <div class="text-sm text-fg-muted">
         <div>
           <nuxt-link
             :to="`/item/${post.id}`"
@@ -24,7 +24,7 @@
             :href="post.url"
             target="_blank"
             rel="noopener"
-            class="ml-1 text-xs text-gray-500 hover:underline"
+            class="ml-1 text-xs text-fg-subtle hover:underline"
           >({{ post.domain }})</a>
         </div>
         <div class="ml-1">
@@ -38,12 +38,12 @@
 
     <div ref="sentinel" aria-hidden="true" class="h-1" />
 
-    <div v-if="loadMoreError" class="p-4 text-center text-red-700">
+    <div v-if="loadMoreError" class="p-4 text-center text-error">
       Failed to load more.
       <button class="ml-2 underline" @click="loadNext()">Retry</button>
     </div>
-    <div v-else-if="loadingMore" class="p-4 text-center text-gray-500">Loading more...</div>
-    <div v-else-if="done && posts.length" class="p-4 text-center text-sm text-gray-400">— end —</div>
+    <div v-else-if="loadingMore" class="p-4 text-center text-fg-subtle">Loading more...</div>
+    <div v-else-if="done && posts.length" class="p-4 text-center text-sm text-fg-subtle">— end —</div>
   </div>
 </template>
 
@@ -91,9 +91,9 @@ useIntersectionObserver(
 
 <style scoped>
 .post-title {
-  color: rgb(17, 24, 39);
+  color: rgb(var(--color-fg));
 }
 .post-title:visited {
-  color: rgb(107, 114, 128);
+  color: rgb(var(--color-visited));
 }
 </style>

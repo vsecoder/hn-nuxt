@@ -1,13 +1,13 @@
 <template>
-  <div v-if="itemError" class="p-4 text-red-700">
+  <div v-if="itemError" class="p-4 text-error">
     Failed to load: {{ itemError.statusMessage || itemError.message }}
     <button class="ml-2 underline" @click="refreshItem()">Retry</button>
   </div>
 
   <template v-else-if="item">
-    <header class="border-b border-gray-100 p-4">
-      <h1 class="text-2xl text-blue-950">{{ item.title }}</h1>
-      <div class="mt-2 text-sm text-gray-600">
+    <header class="border-b border-divider p-4">
+      <h1 class="text-2xl text-accent">{{ item.title }}</h1>
+      <div class="mt-2 text-sm text-fg-subtle">
         {{ item.points }} points by
         <nuxt-link v-if="item.user" :to="`/user/${item.user}`" class="underline">{{ item.user }}</nuxt-link>
         <span v-else>Unknown</span>
@@ -20,7 +20,7 @@
       </div>
     </header>
 
-    <div v-if="articleError" class="p-4 text-red-700">
+    <div v-if="articleError" class="p-4 text-error">
       Failed to load article: {{ articleError.statusMessage || articleError.message }}
       <button class="ml-2 underline" @click="refreshArticle()">Retry</button>
       <a
@@ -31,9 +31,9 @@
         class="ml-2 underline"
       >Open original ↗</a>
     </div>
-    <div v-else-if="!article" class="p-4 text-sm text-gray-500">Loading article...</div>
+    <div v-else-if="!article" class="p-4 text-sm text-fg-subtle">Loading article...</div>
     <article v-else-if="article.article" class="article-content p-4">
-      <div v-if="article.article.byline || article.article.siteName" class="mb-4 text-sm text-gray-500">
+      <div v-if="article.article.byline || article.article.siteName" class="mb-4 text-sm text-fg-subtle">
         <span v-if="article.article.byline">{{ article.article.byline }}</span>
         <span v-if="article.article.byline && article.article.siteName"> · </span>
         <span v-if="article.article.siteName">{{ article.article.siteName }}</span>
@@ -43,7 +43,7 @@
     <article v-else-if="article.text" class="article-content p-4">
       <div v-html="article.text" />
     </article>
-    <div v-else class="p-4 text-sm text-gray-500">
+    <div v-else class="p-4 text-sm text-fg-subtle">
       <span v-if="!item.url">No external link.</span>
       <span v-else>
         Couldn't extract a readable article.
@@ -51,16 +51,16 @@
       </span>
     </div>
 
-    <section id="comments" class="border-t border-gray-200">
-      <h2 class="p-4 pb-1 text-lg text-gray-700">
+    <section id="comments" class="border-t border-divider-strong">
+      <h2 class="p-4 pb-1 text-lg text-fg-muted">
         Comments<span v-if="item.comments_count"> ({{ item.comments_count }})</span>
       </h2>
-      <div v-if="!item.comments.length" class="p-4 text-gray-500">No comments yet.</div>
+      <div v-if="!item.comments.length" class="p-4 text-fg-subtle">No comments yet.</div>
       <Comments v-else :comments="item.comments" />
     </section>
   </template>
 
-  <div v-else-if="itemPending" class="p-4 text-gray-500">Loading...</div>
+  <div v-else-if="itemPending" class="p-4 text-fg-subtle">Loading...</div>
 </template>
 
 <script setup>
@@ -98,19 +98,25 @@ useHead({
   ol { list-style: decimal; }
   li { @apply my-1; }
   a {
-    @apply text-blue-700 underline;
+    color: rgb(var(--color-link));
+    @apply underline;
   }
   pre {
-    @apply my-3 overflow-x-auto rounded bg-gray-50 p-3 text-sm;
+    @apply my-3 overflow-x-auto rounded p-3 text-sm;
+    background-color: rgb(var(--color-code-block));
   }
   code {
-    @apply rounded bg-gray-100 px-1 text-sm;
+    @apply rounded px-1 text-sm;
+    background-color: rgb(var(--color-code));
   }
   pre code {
-    @apply bg-transparent p-0;
+    background-color: transparent;
+    padding: 0;
   }
   blockquote {
-    @apply my-3 border-l-4 border-gray-300 pl-4 text-gray-700;
+    @apply my-3 border-l-4 pl-4;
+    border-color: rgb(var(--color-divider-strong));
+    color: rgb(var(--color-fg-muted));
   }
   img {
     @apply my-3 max-w-full;
@@ -127,13 +133,15 @@ useHead({
     height: auto;
   }
   hr {
-    @apply my-4 border-gray-200;
+    @apply my-4;
+    border-color: rgb(var(--color-divider-strong));
   }
   figure {
     @apply my-4;
   }
   figcaption {
-    @apply mt-1 text-sm text-gray-500;
+    @apply mt-1 text-sm;
+    color: rgb(var(--color-fg-subtle));
   }
 }
 </style>
