@@ -4,12 +4,6 @@ const cacheTTL = 60 * 60 * 24 * 365; // 1 year – you can set this to whatever 
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  app: {
-    head: {
-      link: [{ rel: 'icon', href: '/favicon.ico' }],
-    },
-  },
-
   css: ['@/assets/scss/main.scss'],
 
   nitro: {
@@ -20,18 +14,19 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['@nuxtjs/google-fonts', '@nuxtjs/seo', '@nuxtjs/tailwindcss', '@nuxt/eslint', 'nuxt-icon', '@vueuse/nuxt'],
+  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss', '@nuxt/eslint', '@nuxt/icon', '@vueuse/nuxt'],
+
+  app: {
+    head: {
+      htmlAttrs: { lang: 'en' },
+      link: [{ rel: 'icon', href: '/favicon.ico' }],
+    },
+  },
 
   googleFonts: {
     // https://google-fonts.nuxtjs.org/getting-started/options
     families: {
       Inter: [100, 300, 400, 500, 600, 700],
     },
-  },
-
-  site: {
-    // https://nuxtseo.com/
-    description: 'My awesome Nuxt project', // default meta description
-    defaultLocale: 'en', // HTML lang attribute value
   },
 });

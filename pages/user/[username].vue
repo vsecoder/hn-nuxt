@@ -1,45 +1,34 @@
 <template>
   <div class="p-4">
-    <div class="flex items-center gap-4 pb-2 justify-between">
-      <div class="text-2xl">{{ username }}</div>
-      <div v-if="user.id">
-        <div class="text-sm">
-          <span>Created:</span> {{ new Date(user.created * 1000).toLocaleDateString() }}
+    <div v-if="error" class="text-red-700">
+      Failed to load user: {{ error.statusMessage || error.message }}
+      <button class="ml-2 underline" @click="refresh()">Retry</button>
+    </div>
+    <template v-else>
+      <div class="flex items-center gap-4 pb-2 justify-between">
+        <div class="text-2xl">{{ route.params.username }}</div>
+        <div v-if="user">
+          <div class="text-sm">
+            <span>Created:</span> {{ new Date(user.created * 1000).toLocaleDateString() }}
+          </div>
+          <div class="text-sm">
+            <span>Karma:</span> {{ user.karma }}
+          </div>
         </div>
-        <div class="text-sm">
-          <span>Karma:</span> {{ user.karma }}
-        </div>
+        <div v-else-if="pending">Loading...</div>
       </div>
 
-      <div v-else>Loading...</div>
-    </div>
-
-    <div class="text-gray-700 overflow-x-auto max-w-full" v-html="user.about"></div>
+      <div class="text-gray-700 overflow-x-auto max-w-full" v-html="user?.about"></div>
+    </template>
   </div>
 </template>
 
 <script setup>
 const route = useRoute();
-const username = route.params.username;
 
-const user = ref({});
-
-import { onMounted } from 'vue';
+const { data: user, pending, error, refresh } = await useFetch(() => `/api/hn/user/${route.params.username}`);
 
 useHead({
-  title: `User ${username}`,
-});
-
-onMounted(() => {
-  fetch(`https://hacker-news.firebaseio.com/v0/user/${username}.json?print=pretty`)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      user.value = data;
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+  title: () => `User ${route.params.username}`,
 });
 </script>

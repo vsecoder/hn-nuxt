@@ -1,13 +1,22 @@
 <template>
-  <div v-for="comment in comments" :key="comment.id" class="border-b border-gray-100 break-words flex gap-4 flex-col" :class="embeddedClass">
+  <div
+    v-for="comment in comments"
+    :id="`comment-${comment.id}`"
+    :key="comment.id"
+    class="comment flex flex-col gap-4 break-words border-b border-gray-100"
+    :class="embeddedClass"
+  >
     <div>
-      <div>
-        <a :href="`/user/${comment.user}`" class="underline font-medium">{{ comment.user }}</a> <span class="text-xs text-gray-700">{{ comment.time_ago }}</span>:
+      <div class="text-sm">
+        <nuxt-link :to="`/user/${comment.user}`" class="font-medium underline">{{ comment.user }}</nuxt-link>
+        <a :href="`#comment-${comment.id}`" class="ml-1 text-xs text-gray-500 hover:underline">
+          {{ comment.time_ago }}
+        </a>
       </div>
       <div class="comment-content" v-html="comment.content"></div>
     </div>
 
-    <div v-if="comment.comments.length" class="flex gap-4 flex-col">
+    <div v-if="comment.comments.length" class="flex flex-col gap-4">
       <Comments :comments="comment.comments" :embedded="true" />
     </div>
   </div>
@@ -26,6 +35,15 @@ const embeddedClass = props.embedded ? 'pl-6 border-b-0' : 'p-4';
 </script>
 
 <style lang="scss">
+.comment {
+  scroll-margin-top: 16px;
+  transition: background-color 600ms ease;
+}
+
+.comment:target {
+  background-color: #fff7d6;
+}
+
 .comment-content a {
   color: #044997;
   text-decoration: underline;
